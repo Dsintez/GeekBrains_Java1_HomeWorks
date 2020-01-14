@@ -12,7 +12,6 @@ public class LeapYear {
         long lol = 100000000000L;
 
         String string = "GeekBrains";
-
         System.out.println("Hello " + string);
 
         double a = 1.5, b = 2.4, c = 3.3, d = 4.1;
