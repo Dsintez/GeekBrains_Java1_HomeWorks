@@ -1,63 +1,67 @@
 package HW2;
 
+import java.util.Arrays;
+
 public class Task7Hard {
     /**
-     *
-     * @param args Программа не работает(((
+     * @param args Программа работает)))
      */
     public static void main(String[] args) {
         int[] array = {
                 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1
         };
-
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " "); //посмотрим на элементы массива
-        }
+        System.out.print(Arrays.toString(array));
         System.out.println();
         offsetArray(array, 5);
 
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " "); //посмотрим на элементы массива
-        }
+        System.out.print(Arrays.toString(array));
+        System.out.println();
+        offsetArray(array, -5);
+
+        System.out.print(Arrays.toString(array));
+        System.out.println();
+        offsetArray(array, 19);
+
+        System.out.print(Arrays.toString(array));
+        System.out.println();
+        offsetArray(array, -19);
+
+        System.out.print(Arrays.toString(array));
+        System.out.println();
+        offsetArray(array, 12);
+
+        System.out.print(Arrays.toString(array));
     }
 
     public static void offsetArray(int[] array, int offset) {
+        offset = offset % array.length;
         if (offset == 0) return;
-        int length = array.length;
-        if (offset > length - 1 || -offset > length - 1) {
-            if (offset < 0) offset = -(length % offset);
-            else offset = length % offset;
-        }
-        if (offset*2 > length-1) offset = offset-length;
-        int buffer1 = 0;
-        int buffer2 = 0;
         if (offset < 0) {
-            for (int i = length - 1; i > length + offset - 1; i--) {
-                buffer1 = array[i - length - offset];
-                buffer2 = array[i + offset];
-                array[i + offset] = array[i];
-                array[i] = buffer1;
-                buffer1 = buffer2;
-                for (int j = i + offset; j > -offset-1; j += offset) {
-                    buffer2 = buffer1;
-                    buffer1 = array[j + offset];
-                    array[j + offset] = buffer2;
-                }
-            }
+            offsetRight(array, offset);
         } else {
-            for (int i = 0; i < offset; i++) {
-                buffer1 = array[i + length - offset];
-                buffer2 = array[i + offset];
-                array[i + offset] = array[i];
-                array[i] = buffer1;
-                buffer1 = buffer2;
-                for (int j = i + offset; j < length - offset; j += offset) {
-                    buffer2 = buffer1;
-                    buffer1 = array[j + offset];
-                    array[j + offset] = buffer2;
-                }
+            offsetLeft(array, offset);
+        }
+    }
 
+    private static void offsetLeft(int[] array, int offset) {
+        offset = Math.abs(offset);
+        for (int i = 0; i < offset; i++) {
+            int firstElem = array[0];
+            for (int j = 0; j < array.length - 1; j++) {
+                array[j] = array[j + 1];
             }
+            array[array.length - 1] = firstElem;
+        }
+    }
+
+    private static void offsetRight(int[] array, int offset) {
+        offset = Math.abs(offset);
+        for (int i = 0; i < offset; i++) {
+            int lastElem = array[array.length - 1];
+            for (int j = array.length - 1; j > 0; j--) {
+                array[j] = array[j - 1];
+            }
+            array[0] = lastElem;
         }
     }
 }
