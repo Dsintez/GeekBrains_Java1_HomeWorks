@@ -13,7 +13,7 @@ public class GuessWord {
         String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
         //System.out.println(Arrays.toString(words));
         System.out.println("Угадай английское слово, это может быть: фрукт, овощ или т.п.");
-        String guess = words[random.nextInt(words.length-1)];
+        String guess = words[random.nextInt(words.length)];
         String userWord;
 
         while (true){

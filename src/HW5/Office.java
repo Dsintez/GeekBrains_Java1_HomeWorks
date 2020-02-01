@@ -11,7 +11,7 @@ public class Office {
         employees[4] = new Employee("Sina", "Jon","Igorevich", "Engineer", "ivivan@mailbox.com", "89231231221", 99000, 34);
 
         for (Employee employee : employees) {
-            if (employee.getAge()>40) System.out.println(employee);
+            if (employee.getAge()>40) employee.printInfo();
         }
     }
 }

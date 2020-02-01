@@ -1,4 +1,4 @@
-package lesson4;
+package HW4;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,11 +6,12 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 public class TicTacToe {
-    private static final int SIZE = 5;
-    private static final int DOTS_TO_WIN = 4;
+    private static final int SIZE = 3;
+    private static final int DOTS_TO_WIN = 3;
     private static final char DOTS_EMPTY = '•';
     private static final char DOT_X = 'X';
     private static final char DOT_O = 'O';
+    private static final char DOT_Y = 'Y';
 
     private static char[][] map;
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -25,7 +26,7 @@ public class TicTacToe {
 
     private static void playGame() {
         while (true) {
-            humanTurn();
+            humanTurn(DOT_X);
             printMap();
             if (checkWin(DOT_X)) {
                 System.out.println("Пользователь победил!");
@@ -34,16 +35,24 @@ public class TicTacToe {
             if (isMapFull()) {
                 break;
             }
-            aiTurn();
+            humanTurn(DOT_O);
             printMap();
             if (checkWin(DOT_O)) {
-                System.out.println("Компьютер победил!");
+                System.out.println("Пользователь победил!");
                 break;
             }
             if (isMapFull()) {
-                System.out.println("Ничья!");
                 break;
             }
+//            humanTurn(DOT_Y);
+//            printMap();
+//            if (checkWin(DOT_Y)) {
+//                System.out.println("Пользователь победил!");
+//                break;
+//            }
+//            if (isMapFull()) {
+//                break;
+//            }
         }
     }
 
@@ -81,7 +90,7 @@ public class TicTacToe {
                 if (i - offsetLine == j - offsetColumn && map[i][j] == symbol) {
                     dioganal1++;
                 }
-                if ((j- offsetLine +1 == DOTS_TO_WIN - (i - offsetColumn)) && (map[i][j] == symbol)) {
+                if ((j - offsetLine == DOTS_TO_WIN - (i - offsetColumn) - 1) && (map[i][j] == symbol)) {
                     dioganal2++;
                 }
                 if (map[i][j] == symbol) {
@@ -98,10 +107,10 @@ public class TicTacToe {
         return false;
     }
 
-    private static void humanTurn() {
+    private static void humanTurn(char symbol) {
         int rowNumber = 0, colNumber = 0;
         do {
-            System.out.println("Ход игрока. Введите номер строки и столбца");
+            System.out.println("Ход игрока. " + symbol + " Введите номер строки и столбца");
             try {
                 System.out.print("Строка = ");
                 rowNumber = Integer.parseInt(reader.readLine());
@@ -113,7 +122,7 @@ public class TicTacToe {
                 System.out.println("Введите числа от 1 до " + SIZE);
             }
         } while (!isCellValid(rowNumber, colNumber));
-        map[rowNumber - 1][colNumber - 1] = DOT_X;
+        map[rowNumber - 1][colNumber - 1] = symbol;
     }
 
     private static void aiTurn() {
